@@ -1,0 +1,250 @@
+<head>
+    <title>TheSpiceNet</title>
+    <link rel="stylesheet" href="./Css/homepage.css">
+</head>
+{{!-- alert bar --}}
+<div class="alert alert-danger" id="alert" role="alert">
+</div>
+
+{{!-- navigationbar --}}
+<div id="nav_shadow"></div>
+<div id="nav_bar">
+    <div id="right">
+        <img src="https://res.cloudinary.com/dtg5jkrv7/image/upload/v1622303085/logo.svg" id="logo">
+        <span id="company_name">TheSpiceNet
+        </span>
+    </div>
+    <div id="left">
+        <a href="/signup" class="nav_link">
+            <button type="submit">Register
+            </button>
+        </a>&emsp;
+        <a href="/login" class="nav_link">
+            <button type="submit">Login
+            </button>
+        </a>
+    </div>
+</div>
+</div>
+{{!-- content section --}}
+<div id="content">
+    <div id="cover_image">
+    </div>
+    <p id="heading_text_1">Safe Food</p>
+    <p id="heading_text_2">Delivery</p>
+    <p id="heading_text_3">Welcome to TheSpiceNet<br>We find the best and the nearest restaurant in your locality
+        with <br>amazing food service according to the users rating.</p><br>
+    <a href="#heading_text_4" id="order_link"><button type="submit">Order Now</button></a><br>
+</div>
+{{!-- searchbar --}}
+<center>
+    <h3 id="heading_text_4">Your Favorite food delivery with TheSpiceNet <i class="fas fa-hamburger"></i></h3>
+    <div id="searchbar_form">
+        <input type="Search" name="Search" id="searchbar">
+        <button id="search_button" onclick="showresult()"><i class="fa fa-search" id="search_icon"></i></button><br>
+    </div>
+</center>
+
+<div id="grid_result">
+</div>
+{{!-- footer --}}
+<footer>
+    <div class="column">
+        <a class="footer_title">TheSpiceNet</a>
+        <a>Support and become a member of TheSpiceNet family and follow us on different social media platform to get the
+            latest news about new opening restaurnats.</a>
+        <a href="#" title="Facebook"><i class="fa fa-facebook"></i></a>
+        <a href="#" title="Instagram"><i class="fa fa-instagram"></i></a>
+        <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
+    </div>
+    <div class="column">
+        <a class="footer_title">OTHER LINKS</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+        <a href="#">Ticket</a>
+        <a href="#">Contact Us</a>
+    </div>
+    <div class="column">
+        <a class="footer_title">SHORT CUT</a>
+        <a href="">Our Services</a>
+        <a href="">Our Blog</a>
+        <a href="">Our Projects</a>
+        <a href="">About Us</a>
+    </div>
+    <div class="column">
+        <a class="footer_title">LATEST NEWS</a>
+        <a href="" title="Lorem ipsum dolor sit amet"><img src="https://source.unsplash.com/50x50/?green,trees"></a>
+        <a href="" title="Lorem ipsum dolor sit amet"><img src="https://source.unsplash.com/50x50/?green,tree"></a>
+        <a href="" title="Lorem ipsum dolor sit amet"><img src="https://source.unsplash.com/50x50/?green,plant"></a>
+        <a href="" title="Lorem ipsum dolor sit amet"><img src="https://source.unsplash.com/50x50/?green,forest"></a>
+        <a href="" title="Lorem ipsum dolor sit amet"><img
+                src="https://source.unsplash.com/50x50/?green,afforestation"></a>
+    </div>
+    <div class="column">
+        <a class="footer_title">GET IN TOUCH</a>
+        <a title="Address"><i class="fa fa-map-marker"></i> 007, street, province/state, country - zipcode</a>
+        <a href="emailto:" title="Email"><i class="fa fa-envelope"></i> email@serviceprovider.domain</a>
+        <a href="tel:" title="Contact"><i class="fa fa-phone"></i> +(x)-xxxx-xxxxx</a>
+    </div>
+
+    <div class="sub-footer">
+        © CopyRights 2021 TheSpiceNet || All rights reserved
+    </div>
+</footer>
+
+{{!-- script --}}
+<script defer>
+    nav_left = document.getElementById("left");
+    gridresult = document.getElementById("grid_result");
+    searchBar = document.getElementById("searchbar");
+    alrt=document.getElementById("alert");
+    let resCharacters = [];
+    
+    //alertbar funtion
+   function showMessage(elementId, message) {
+        document.getElementById(elementId).style.display = 'block';
+        console.log(elementId)
+        document.getElementById("alert").innerHTML = `<b>ALERT!</b> ${message}`
+        setTimeout(`hide("${elementId}")`, 2000);
+    }
+
+    function hide(elementId) {
+        document.getElementById(elementId).style.display = 'none';
+    }
+    
+    //funtion to find item from the database
+    function finditem(data) {
+        var str = ["carrot", "broccoli", "asparagus", "cauliflower", "corn", "mushrooms", "onion", "potato","tomato","peas", "sweet potato",  "cabbage", "chili", "garlic","oregano", "bean", "salad", "pizza", "pasta", "popcorn", "lobster", "steak", "bbq", "pudding", "hamburger", "pie", "cake", "sausage", "tacos", "seafood", "fries", "masala","chicken", "toast","poke", "chocolate","donuts","sushi", "ice cream", "curry", "beef", "goat", "turkey", "pork", "fish", "crab", "bacon", "ham", "ribs"
+        ]
+        var element = data.toLowerCase();
+        var result = "";
+        for (var i = 0; i <= str.length - 1; i++) {
+            if (result == element) {
+                result = str[i - 1]
+                break;
+            }
+            if (str[i] == element) {
+                console.log(str[i])
+                return element;
+            }
+            else if (str[i].search(element[0]) == 0) {
+                for (var j = 0; j <= element.length - 1; j++) {
+                    if (str[i].search(element[j]) == j) {
+                        result += str[i][j];
+                    }
+                    else {
+                        result = "";
+                        break;
+                    }
+                }
+            }
+        }
+        console.log(result)
+        return result;
+    }
+    
+    //searchbar funtion to display result
+    function showresult() {
+        if (finditem(searchBar.value)==""){
+           showMessage('alert',"No such item available on the store");
+        }
+
+        else{
+        fetch(`/search/${finditem(searchBar.value)}`)
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data)
+                gridresult.innerHTML = ` `;
+                let value = searchBar.value
+                for (var i = 0; i <= 8; i++) {
+                    gridresult.innerHTML += `<div class="card" id="grid_card"style="width: 18rem;">
+                <img class="card-img-top" src="${data[i].image_url}" style="object-fit: cover;
+                height:200px" alt="Image not availabe">
+                <div class="card-body">
+                    <h5 class="card-title">${data[i].title}</h5>
+                    <p class="card-text">Publisher<br> ${data[i].publisher}</p>
+                    <p class="card-text">Price:- $${data[i].price}</p>
+                    <a href="${data[i].source_url}"class="btn btn-primary">Know more</a>
+                    <span class="btn btn-primary" onclick="additem('${data[i].title}','${data[i].publisher}','${data[i].image_url}','${data[i].price}')">Add To Cart</span>
+                </div>
+                </div>` 
+            }
+        })
+        }
+    }
+
+//sending data to /sendcartdata post request
+    function additem(dish_name,publisher,image,price) {
+        if ("{{login}}" == "true") {
+        const data = {
+                "username":"{{username}}",
+                "dish":dish_name,
+                "publisher":publisher,
+                "img_Url":image,
+                "price":price,
+                "login":"false"
+        };
+        fetch('/sendcartdata', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("alert").style.backgroundColor="#4CAF50";
+            document.getElementById("alert").style.color="#ffffff";
+            showMessage('alert','Item Added To Your Cart');
+        })
+        .catch((error) => {
+            console.error('Error:', error); 
+        });
+    }
+        else if("{{login}}" == "" ||"{{login}}" == "false"){
+           showMessage('alert',"Login to add items to the cart");
+        }
+    }
+    //checking if user is logged in
+    if ("{{login}}" == "true" ) {
+        nav_left.innerHTML = `
+    <a href="#" class="nav_link" style="width:300px">
+        <button type="submit">
+            Welcome<br>  {{username}} 
+            <div id=img_cover style="background-image:url({{imgUrl}})">
+            </div>
+        </button>
+    </a>&emsp;
+    <form class="nav_link" method="get" action="/cart">
+        <button type="submit" onclick=senddata("{{username}}")>
+            Cart
+        </button>&emsp;
+    </form>
+    <form class="nav_link" method="get" action="/login">
+        <button type="submit" id="login_form">
+            LogOut
+        </button>
+    </form>
+`
+    }
+    
+//sending data to /cart post request
+    function senddata(username) {
+            const data= {
+                "username":"{{username}}"
+            }
+            fetch('/cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+    }
+    
+searchBar.addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {
+        showresult();
+    }
+});
+</script>
